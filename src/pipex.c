@@ -208,7 +208,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strlcpy(&s3[len_s1], s2, len_s2 + 1);
 	return (s3);
 }
-
+//######################################################
 //função para destacar a linha PATH e guardarem uma variavel do programa
 int	check_envp (t_data_args *args)
 {
@@ -224,46 +224,6 @@ int	check_envp (t_data_args *args)
 	return (0);
 }
 
-//função para verificar se os comandos do envp são validos
-int		compare_path_envp(t_data_args *args)
-{
-	int i;
-	char *aux;
-
-	while (args->argv_validator)
-	{
-		i = 0;
-		while (args->path[i])
-		{
-			args->path[i] = ft_strjoin(args->path[i], "/");
-			aux = ft_strjoin(args->path[i], args->argv_validator[0]);
-			if (access(aux, F_OK) == 0)
-			{
-				return (0);
-			}
-			i++;
-		}
-		args->argv_validator++;
-	}
-	return (1);
-}
-
-//função para validar os dados no argv
-int	check_argv (t_data_args *args,char **argv, int argc)
-{
-		int	index_argc;
-
-		args->new_argv = argv;
-		index_argc = 2;
-		while (index_argc < argc - 1)
-		{
-			args->argv_validator = ft_split(argv[index_argc], ' ');
-			compare_path_envp(args);
-			index_argc++;
-		}
-	return (0);
-}
-
 int	check_file (t_data_args *args)
 {
 	args->file1 = open ("file1.txt", O_RDONLY);
@@ -275,10 +235,26 @@ int	check_file (t_data_args *args)
 	return (0);
 }
 
+int	exec_child_process(t_data_args *args)
+{
+	dup2(args->file1, STDIN_FILENO);
+	execve(args->cmd_path, args->argv_validator, NULL);
+	return (0);
+}
+
 int	exec_pipe(t_data_args *args)
 {
 	int fd[2];
 	int pid1;
+	int i;	
+	
+	args->cmd_path = ft_strdup("");
+	i = 0;
+	while (args->path_confirmed[args->path_count][i] != '\0')
+	{
+		args->cmd_path[i] = args->path_confirmed[args->path_count][i];
+		i++;
+	}
 	
 	if (pipe(fd) == -1)
 		return (1);
@@ -287,29 +263,73 @@ int	exec_pipe(t_data_args *args)
 		return (1);
 	if (pid1 == 0)
 	{
-		//exec child process
-		char teste0[] = {"/bin/ls"};
-		char *teste1[] = {"ls"};
-		char *teste2[] = {NULL};
-		printf ("%d\n", args->file1);
-		execve(teste0, teste1, teste2);
+		exec_child_process(args);
+
 	}
 	waitpid(pid1, NULL, 0);
+	return (0);
+}
+
+int		config_cmd(t_data_args *args)
+{
+	int i;
+	char *aux;
+	char *aux2;
+
+	args->path_count = 0;
+	while (args->argv_validator)
+	{
+		i = 0;
+		while (args->path[i])
+		{
+			aux2 = ft_strjoin(args->path[i], "/");
+			aux = ft_strjoin(aux2, args->argv_validator[args->path_count]);
+			if (access(aux, F_OK) == 0)
+			{
+				args->path_confirmed[args->path_count] = aux;
+				exec_pipe(args);
+				return (0);
+			}
+			i++;
+		}
+		args->argv_validator++;
+	}
+	return (1);
+}
+
+
+int	pipex (t_data_args *args,char **argv, int argc)
+{
+		int	index_argc;
+
+		args->new_argv = argv;
+		args->argv_validator = NULL;
+		index_argc = 2;
+		args->path_confirmed = malloc((sizeof(char **)));
+		if (!args->path_confirmed)
+			return (1);
+		while (index_argc < argc - 1)
+		{
+			args->argv_validator = ft_split(args->new_argv[index_argc], ' ');
+			config_cmd(args);
+			index_argc++;
+		}
 	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data_args args;
+
 	if (argc == 5)
 	{
 		if (envp == NULL)
 			return (1);
 		args.new_envp = envp;
-	
-		if (check_envp (&args) == 0 && check_argv (&args, argv, argc) == 0 && check_file (&args) == 0)
-			printf ("tudo ok\n");
-		exec_pipe(&args);
+		if (check_envp (&args) == 0 && check_file (&args) == 0)
+			pipex (&args, argv, argc);
+		else
+			return (1);	
 	}
 	else
 	{

@@ -20,7 +20,7 @@ FS	=	-fsanitize=address -g3
 all:	$(NAME)
 
 $(NAME):	$(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(FS) $(OBJ) -o $(NAME) $(I_PIPEX)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(I_PIPEX)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(I_PIPEX)
