@@ -6,7 +6,9 @@ CC	=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -g
 
 SRC_DIR	=	src
-SRC_FILES	=	pipex.c
+SRC_FILES	=	pipex.c \
+				pipex_utils1.c \
+				pipex_utils2.c \
 
 SRC	=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -20,7 +22,7 @@ FS	=	-fsanitize=address -g3
 all:	$(NAME)
 
 $(NAME):	$(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(I_PIPEX)
+	$(CC) $(CFLAGS) $(FS) $(OBJ) -o $(NAME) $(I_PIPEX)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(I_PIPEX)
@@ -35,6 +37,7 @@ clean:
 
 fclean:
 	rm -rf $(NAME)
+	
 
 re: fclean all
 
