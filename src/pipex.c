@@ -2,9 +2,10 @@
 
 void	free_pipex(t_pipex *pipex)
 {
+	free (pipex->cmd_argv);
 	free (pipex->path);
 	free (pipex->path_confirmed);
-	free (pipex->cmd_argv);
+	
 	close (pipex->file1);
 	close (pipex->file2);
 }
