@@ -8,9 +8,7 @@ size_t	ft_strlen(const char *s)
 		return (1);
 	i = 0;
 	while (s[i] != '\0')
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -34,9 +32,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		dst[i] = '\0';
 	}
 	while (src[i])
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -47,12 +43,10 @@ char	*ft_strdup(const char *s)
 	size_t		len;
 
 	i = 0;
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len + 1));
+	len = ft_strlen(s) + 1;
+	str = (char *)malloc(sizeof(char) * (len));
 	if (!str)
-	{
 		return (NULL);
-	}
 	while (s[i] != '\0')
 	{
 		str[i] = s[i];
@@ -77,9 +71,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		size = len + 1;
 	substr = (char *)malloc(size * sizeof(char));
 	if (!substr)
-	{
 		return (NULL);
-	}
 	ft_strlcpy(substr, &s[start], size);
 	return (substr);
 }
@@ -94,20 +86,38 @@ int	ft_strncmp(const char *str1, const char *str2, size_t n)
 	s2 = (unsigned char *)str2;
 	i = 0;
 	if (n == 0)
-	{
 		return ((int)n);
-	}
 	while (i < n)
 	{
 		if (s1[i] == '\0' && s2[i] == '\0')
-		{
 			return (0);
-		}
 		if (s1[i] != s2[i])
-		{
 			return ((int)(s1[i] - s2[i]));
-		}
 		i++;
 	}
 	return (0);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(dst);
+	if (size <= len)
+	{
+		return (size + ft_strlen(src));
+	}
+	if (size > len)
+	{
+		while ((size - len) > 1 && src[i] != '\0')
+		{
+			dst[len + i] = src[i];
+			i++;
+			size--;
+		}
+		dst[len + i] = '\0';
+	}
+	return (len + ft_strlen(src));
 }

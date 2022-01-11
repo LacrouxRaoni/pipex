@@ -29,5 +29,6 @@ void	mal_sub(char **tab, char const *s, char c, size_t nb_ptr);
 char	**ft_split(char const *s, char c);
 int	ft_strncmp(const char *str1, const char *str2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 # endif
