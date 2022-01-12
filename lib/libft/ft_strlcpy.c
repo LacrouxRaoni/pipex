@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 20:28:49 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/10 20:54:49 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:17:02 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	{
 		len = strnlen(src, size - 1);
 		ft_memcpy(dst, src, len);
-		dst[len] = '\0'; 
+		dst[len] = '\0';
 	}
 	return (i);
 }

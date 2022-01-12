@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/11 16:17:34 by rruiz-la          #+#    #+#              #
+#    Updated: 2022/01/11 22:46:51 by rruiz-la         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	pipex
 
 PATH_LIBFT	=	./lib/libft
@@ -9,13 +21,15 @@ I_LIBFT	=	-I ./ -I ./lib/libft/
 LINK	=	-I ./ -I ./lib/libft/ -L./lib/libft/ -lft
 
 
-CC	=	gcc
+CC	=	clang
 CFLAGS	=	-Wall -Wextra -Werror -g
 
 LIB_DIR	=	LIB
 
 SRC_DIR	=	src
-SRC_FILES	=	pipex.c
+SRC_FILES	=	pipex.c \
+				cmd_setup.c \
+				free_pipex.c
 
 SRC	=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

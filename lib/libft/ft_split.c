@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:37:44 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/11 13:00:41 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:16:25 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	ft_ptr_count(char const *s, char c)
 	return (i);
 }
 
-static	char *strsubsep(char *str, char sub, char delim)
+static	char	*strsubsep(char *str, char sub, char delim)
 {
 	size_t	i;
 	size_t	j;
@@ -54,7 +54,7 @@ static	char *strsubsep(char *str, char sub, char delim)
 
 static void	free_tab(char **tab, size_t size)
 {
-	size_t i;
+	size_t	i;
 
 	i = -1;
 	while (++i < size)
@@ -87,7 +87,6 @@ static void	mal_sub(char **tab, char *str, size_t nb_ptr, char delim)
 	tab[i] = NULL;
 }
 
-
 char	**ft_split(char const *s, char c)
 {
 	char	**tab;
@@ -98,7 +97,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	str = strsubsep(ft_strdup(s), c, c);
 	if (!str)
-		return (NULL); 
+		return (NULL);
 	nb_ptr = ft_ptr_count(s, c) + 1;
 	tab = (char **)malloc(sizeof(char *) * nb_ptr);
 	if (!tab)
