@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/11 22:01:53 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/13 08:17:46 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		while (pipex.index < argc - 1)
 		{
 			if (treat_argv_envp(&pipex, argv, envp) == 0
-				&& open_files(&pipex) == 0)
+				&& open_files(&pipex, argv, argc) == 0)
 			{
 				prepare_and_exec_pipe (&pipex, fd);
 				exec_parent_process (&pipex, fd);
@@ -84,6 +84,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	else
-		exit (write (1, "Argument numbers invalid.\n", 27));
+		exit (write (1, "Invalid argument numbers\n", 27));
 	return (0);
 }

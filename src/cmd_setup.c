@@ -6,21 +6,21 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/11 22:24:50 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/13 08:39:06 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	open_files(t_pipex *pipex)
+int	open_files(t_pipex *pipex, char **argv, int argc)
 {
-	pipex->file1 = open("file1.txt", O_RDONLY);
+	pipex->file1 = open(argv[1], O_RDONLY);
 	if (pipex->file1 < 0)
 	{
 		write (1, "File 1 can not be opened\n", 26);
 		return (1);
-	}	
-	pipex->file2 = open("file2.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	}
+	pipex->file2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (pipex->file2 < 0)
 	{
 		write (1, "File 2 can not be opened\n", 26);
@@ -69,11 +69,15 @@ int	check_valid_path_cmd(t_pipex *pipex)
 	int		i;
 	char	*aux;
 
+	if (pipex->cmd_argv[0][0] == '/')
+		pipex->path_confirmed = ft_strdup(pipex->cmd_argv[0]);
+	if (access(pipex->path_confirmed, F_OK) == 0)
+		return (0);
 	i = 0;
 	while (pipex->path[i])
 	{
-		aux = ft_strjoin("/", pipex->cmd_argv[0]);
-		pipex->path_confirmed = ft_strjoin(pipex->path[i], aux);
+		aux = ft_strjoin(pipex->path[i], "/");
+		pipex->path_confirmed = ft_strjoin(aux, pipex->cmd_argv[0]);
 		if (access(pipex->path_confirmed, F_OK) == 0)
 		{
 			free (aux);

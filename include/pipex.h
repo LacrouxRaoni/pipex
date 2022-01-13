@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/11 18:20:34 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/13 08:38:39 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_pipex
 int		check_valid_path_cmd(t_pipex *pipex);
 int		treat_argv_envp(t_pipex *pipex, char **argv, char **envp);
 int		validate_path(t_pipex *pipex, char **envp);
-int		open_files(t_pipex *pipex);
+int		open_files(t_pipex *pipex, char **argv, int argc);
 void	free_pipex(t_pipex *pipex);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
