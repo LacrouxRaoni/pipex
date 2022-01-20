@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/19 22:12:53 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/19 22:36:22 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	prepare_and_exec_pipe(t_pipex_bonus *pipex, int *fd)
 	if (pid1 == 0)
 		exec_child_process(pipex, fd);
 	waitpid(pid1, NULL, 0);
+	exec_parent_process (pipex, fd);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -73,10 +74,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (treat_argv_envp(&pipex, argv, envp) == 0
 				&& open_files(&pipex, argv, argc) == 0)
-			{
 				prepare_and_exec_pipe (&pipex, fd);
-				exec_parent_process (&pipex, fd);
-			}
 			else
 			{
 				free_pipex(&pipex);

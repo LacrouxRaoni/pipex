@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 21:08:47 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/19 22:10:57 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/19 22:35:57 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	here_doc(int *fd, t_pipex_bonus *pipex, char **argv)
 	dup2(fd[0], STDIN_FILENO);
 	close (fd[0]);
 	close (fd[1]);
-	pipex->index++;	
+	pipex->index++;
 }

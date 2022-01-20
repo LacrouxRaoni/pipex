@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/19 22:12:58 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/19 22:37:04 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	open_files(t_pipex_bonus *pipex, char **argv, int argc)
 {
 	pipex->new_argc = argc;
 	if (!(ft_strncmp (argv[1], "here_doc", 8) == 0))
-	{	pipex->file1 = open(argv[1], O_RDONLY);
+	{
+		pipex->file1 = open(argv[1], O_RDONLY);
 		if (pipex->file1 < 0)
 		{
 			write (1, "File 1 can not be opened\n", 26);
