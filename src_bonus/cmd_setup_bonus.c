@@ -1,35 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_setup.c                                        :+:      :+:    :+:   */
+/*   cmd_setup_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/16 11:09:32 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/19 22:12:58 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-int	open_files(t_pipex *pipex, char **argv, int argc)
+int	open_files(t_pipex_bonus *pipex, char **argv, int argc)
 {
-	pipex->file1 = open(argv[1], O_RDONLY);
-	if (pipex->file1 < 0)
-	{
-		write (1, "No such file or directory\n", 27);
-		return (1);
+	pipex->new_argc = argc;
+	if (!(ft_strncmp (argv[1], "here_doc", 8) == 0))
+	{	pipex->file1 = open(argv[1], O_RDONLY);
+		if (pipex->file1 < 0)
+		{
+			write (1, "File 1 can not be opened\n", 26);
+			return (1);
+		}
 	}
-	pipex->file2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	pipex->file2 = open(argv[pipex->new_argc - 1],
+			O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (pipex->file2 < 0)
 	{
-		write (1, "No such file or directory\n", 27);
+		write (1, "File 2 can not be opened\n", 26);
 		return (1);
 	}
 	return (0);
 }
 
-int	treat_argv_envp(t_pipex *pipex, char **argv, char **envp)
+int	validate_path(t_pipex_bonus *pipex, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			pipex->path = split_pipex(envp[i], ':');
+		i++;
+	}
+	return (0);
+}
+
+int	treat_argv_envp(t_pipex_bonus *pipex, char **argv, char **envp)
 {
 	pipex->cmd_argv = NULL;
 	pipex->path = NULL;
@@ -50,21 +68,7 @@ int	treat_argv_envp(t_pipex *pipex, char **argv, char **envp)
 	return (0);
 }
 
-int	validate_path(t_pipex *pipex, char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			pipex->path = split_pipex(envp[i], ':');
-		i++;
-	}
-	return (0);
-}
-
-int	check_valid_path_cmd(t_pipex *pipex)
+int	check_valid_path_cmd(t_pipex_bonus *pipex)
 {
 	int		i;
 	char	*aux;

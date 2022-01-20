@@ -6,11 +6,12 @@
 #    By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 16:17:34 by rruiz-la          #+#    #+#              #
-#    Updated: 2022/01/12 13:04:58 by rruiz-la         ###   ########.fr        #
+#    Updated: 2022/01/19 21:51:51 by rruiz-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	pipex
+NAME_BONUS	=	pipex_bonus
 
 PATH_LIBFT	=	./lib/libft
 LIBFT	=	$(PATH_LIBFT)/libft.a
@@ -29,23 +30,45 @@ LIB_DIR	=	LIB
 SRC_DIR	=	src
 SRC_FILES	=	pipex.c \
 				cmd_setup.c \
-				free_pipex.c
+				split_pipex.c \
+				free_pipex.c \
 
 SRC	=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
+
+SRC_DIR_BONUS	=	src_bonus
+SRC_FILES_BONUS	=	pipex_bonus.c \
+					cmd_setup_bonus.c \
+					split_pipex_bonus.c \
+					free_pipex_bonus.c \
+					here_doc_bonus.c
+
+SRC_BONUS	=	$(addprefix $(SRC_DIR_BONUS)/, $(SRC_FILES_BONUS))
 
 OBJ_DIR = obj
 OBJ	=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
+OBJ_DIR_BONUS = obj_bonus
+OBJ_BONUS	=	$(SRC_BONUS:$(SRC_DIR_BONUS)/%.c=$(OBJ_DIR_BONUS)/%.o)
+
 HEADER	=	pipex.h
+HEADER	=	pipex_bonus.h
 
 FS	=	-fsanitize=address -g3
 
 all:	$(NAME)
 
+bonus: $(NAME_BONUS)
+
 $(NAME):	$(LIBFT) $(OBJ_DIR) $(OBJ)
 	$(CC) $(CFLAGS) $(FS) $(OBJ) $(LINK) -o $(NAME) $(I_PIPEX)
 
+$(NAME_BONUS):	$(LIBFT) $(OBJ_DIR_BONUS) $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $(OBJ_BONUS) $(LINK) -o $(NAME_BONUS) $(I_PIPEX)
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(I_PIPEX)
+
+$(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(I_PIPEX)
 
 $(LIBFT):
@@ -54,14 +77,20 @@ $(LIBFT):
 $(OBJ_DIR):
 	mkdir obj
 
+$(OBJ_DIR_BONUS):
+	mkdir obj_bonus
+
 clean: 
 	rm -rf $(OBJ)
 	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_BONUS)
+	rm -rf $(OBJ_DIR_BONUS)	
 	rm file2.txt
 	make -C $(PATH_LIBFT) clean
 
 fclean:
 	rm -rf $(NAME)
+	rm -rf $(NAME_BONUS)
 	make -C $(PATH_LIBFT) clean	
 
 re: fclean all
@@ -69,4 +98,4 @@ re: fclean all
 valgrind: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./pipex
 
-.PHONY:	all clean fclean re valgrind
+.PHONY:	all clean fclean re valgrind bonus

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/15 16:34:33 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/19 22:12:58 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -19,23 +19,24 @@
 # include <sys/wait.h>
 # include <stdio.h>
 
-typedef struct s_pipex
+typedef struct s_pipex_bonus
 {
 	int		index;
 	int		file1;
 	int		file2;
+	int		new_argc;
 	char	**tmp_envp;
 	char	**cmd_argv;
 	char	**path;
 	char	*path_confirmed;
+}	t_pipex_bonus;
 
-}	t_pipex;
-
-int		check_valid_path_cmd(t_pipex *pipex);
-int		treat_argv_envp(t_pipex *pipex, char **argv, char **envp);
-int		validate_path(t_pipex *pipex, char **envp);
-int		open_files(t_pipex *pipex, char **argv, int argc);
-void	free_pipex(t_pipex *pipex);
+int		check_valid_path_cmd(t_pipex_bonus *pipex);
+int		treat_argv_envp(t_pipex_bonus *pipex, char **argv, char **envp);
+int		validate_path(t_pipex_bonus *pipex, char **envp);
+int		open_files(t_pipex_bonus *pipex, char **argv, int argc);
+void	free_pipex(t_pipex_bonus *pipex);
+void	here_doc(int *fd, t_pipex_bonus *pipex, char **argv);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*ft_strdup(const char *s);
@@ -44,5 +45,7 @@ char	**split_pipex(char const *s, char c);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
+char	*get_next_line(int fd);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif
