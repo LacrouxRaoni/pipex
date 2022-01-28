@@ -1,0 +1,9 @@
+*.gch
+.vscode
+file2.txt
+*.o
+pipex
+pipex_bonus
+pipexMedic
+*.txt
+pipex-tester

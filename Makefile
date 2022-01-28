@@ -6,7 +6,7 @@
 #    By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 16:17:34 by rruiz-la          #+#    #+#              #
-#    Updated: 2022/01/19 21:51:51 by rruiz-la         ###   ########.fr        #
+#    Updated: 2022/01/27 23:53:53 by rruiz-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_FILES	=	pipex.c \
 SRC	=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 SRC_DIR_BONUS	=	src_bonus
-SRC_FILES_BONUS	=	pipex_bonus.c \
+SRC_FILES_BONUS	=	main_bonus.c \
+					pipex_bonus.c \
 					cmd_setup_bonus.c \
 					split_pipex_bonus.c \
 					free_pipex_bonus.c \
@@ -96,6 +97,6 @@ fclean:
 re: fclean all
 
 valgrind: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./pipex
+	valgrind --leak-check=full --show-leak-kinds=all ./pipex file1.txt "catza" "wc -l" file2.txt
 
 .PHONY:	all clean fclean re valgrind bonus

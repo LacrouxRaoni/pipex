@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/16 11:09:32 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/27 22:53:30 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	open_files(t_pipex *pipex, char **argv, int argc)
 {
-	pipex->file1 = open(argv[1], O_RDONLY);
+	if (pipex->index == 2)
+		pipex->file1 = open(argv[1], O_RDONLY);
 	if (pipex->file1 < 0)
 	{
 		write (1, "No such file or directory\n", 27);
@@ -29,11 +30,26 @@ int	open_files(t_pipex *pipex, char **argv, int argc)
 	return (0);
 }
 
+int	validate_path(t_pipex *pipex, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			pipex->path = split_pipex(envp[i], ':');
+		i++;
+	}
+	return (0);
+}
+
 int	treat_argv_envp(t_pipex *pipex, char **argv, char **envp)
 {
 	pipex->cmd_argv = NULL;
 	pipex->path = NULL;
 	pipex->path_confirmed = NULL;
+	pipex->flag_cmd = 0;
 	if (argv == NULL || envp == NULL)
 	{
 		write (1, "Argv or envp is NULL\n", 22);
@@ -47,20 +63,6 @@ int	treat_argv_envp(t_pipex *pipex, char **argv, char **envp)
 	}
 	if (validate_path (pipex, envp) == 1)
 		return (1);
-	return (0);
-}
-
-int	validate_path(t_pipex *pipex, char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			pipex->path = split_pipex(envp[i], ':');
-		i++;
-	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/15 16:34:33 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:30:57 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_pipex
 	int		index;
 	int		file1;
 	int		file2;
+	int		flag_cmd;
 	char	**tmp_envp;
 	char	**cmd_argv;
 	char	**path;

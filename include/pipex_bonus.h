@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/19 22:12:58 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/27 23:27:16 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_pipex_bonus
 	char	*path_confirmed;
 }	t_pipex_bonus;
 
+int		pipex_bonus(int argc, char **argv, char **envp, t_pipex_bonus *pipex);
 int		check_valid_path_cmd(t_pipex_bonus *pipex);
 int		treat_argv_envp(t_pipex_bonus *pipex, char **argv, char **envp);
 int		validate_path(t_pipex_bonus *pipex, char **envp);

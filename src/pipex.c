@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/16 11:17:03 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/27 22:53:35 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,8 @@ void	exec_parent_process(t_pipex *pipex, int *fd)
 	close (fd[1]);
 }
 
-void	prepare_and_exec_pipe(t_pipex *pipex, int *fd)
+static	void	exec_pipex(t_pipex *pipex, int *fd, int pid1)
 {
-	int	pid1;
-
-	if (check_valid_path_cmd(pipex) != 0)
-	{
-		free_pipex (pipex);
-		write (1, "command not found\n", 19);
-		exit (127);
-	}
 	if (pipe(fd) == -1)
 	{
 		free_pipex (pipex);
@@ -60,6 +52,27 @@ void	prepare_and_exec_pipe(t_pipex *pipex, int *fd)
 	waitpid(pid1, NULL, 0);
 }
 
+static int	prepare_and_exec_pipe(t_pipex *pipex, int *fd, int argc)
+{
+	int	pid1;
+
+	pid1 = 0;
+	if (check_valid_path_cmd(pipex) != 0)
+	{
+		if (pipex->index == argc - 2)
+		{
+			free_pipex (pipex);
+			write (1, "command not found\n", 19);
+			exit (127);
+		}
+		write (1, pipex->cmd_argv[0], ft_strlen(pipex->cmd_argv[0]));
+		write (1, ": command not found\n", 21);
+		return (1);
+	}
+	exec_pipex(pipex, fd, pid1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
@@ -73,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 			if (treat_argv_envp(&pipex, argv, envp) == 0
 				&& open_files(&pipex, argv, argc) == 0)
 			{
-				prepare_and_exec_pipe (&pipex, fd);
+				prepare_and_exec_pipe (&pipex, fd, argc);
 				exec_parent_process (&pipex, fd);
 			}
 			else

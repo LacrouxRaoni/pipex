@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 21:08:47 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/19 22:35:57 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:10:50 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,22 @@
 void	here_doc(int *fd, t_pipex_bonus *pipex, char **argv)
 {
 	char	*line;
+	int		limiter;
 
+	limiter = ft_strlen(argv[2]);
 	if (pipe(fd) < 0)
-		exit (write (1, "Pipe error\n", 14));
+		exit (write (1, "Pipe error\n", ft_strlen("Pipe error\n")));
 	while (1)
 	{
+		write (1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(argv[2], line, ft_strlen(argv[2])) == 0)
-			break ;
+		if (ft_strncmp(argv[2], line, limiter) == 0)
+		{
+			if (line[limiter] == '\n')
+				break ;
+			else
+				write (fd[1], line, ft_strlen(line));
+		}
 		else
 			write (fd[1], line, ft_strlen(line));
 	}
