@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/11 21:07:48 by rruiz-la          #+#    #+#             */
-/*   Updated: 2021/08/11 22:17:31 by rruiz-la         ###   ########.fr       */
+/*   Created: 2021/08/11 22:20:00 by rruiz-la          #+#    #+#             */
+/*   Updated: 2022/01/29 12:12:38 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+size_t	ft_strlen(const char *s)
 {
-	unsigned int	i;
+	size_t	i;
+	char	*str;
 
-	if (!s || !f)
-	{
-		return ;
-	}
+	if (!s)
+		return (0);
+	str = (char *)s;
 	i = 0;
-	while (s[i])
-	{
-		f(i, s + i);
+	while (str[i] != '\0')
 		i++;
-	}
+	return (i);
 }

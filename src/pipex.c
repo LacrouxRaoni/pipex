@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/27 22:53:35 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 17:16:49 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ void	exec_parent_process(t_pipex *pipex, int *fd)
 
 static	void	exec_pipex(t_pipex *pipex, int *fd, int pid1)
 {
-	if (pipe(fd) == -1)
-	{
-		free_pipex (pipex);
-		exit (write (1, "Pipe error\n", 14));
-	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
@@ -61,15 +56,21 @@ static int	prepare_and_exec_pipe(t_pipex *pipex, int *fd, int argc)
 	{
 		if (pipex->index == argc - 2)
 		{
+			write (1, pipex->cmd_argv[0], ft_strlen(pipex->cmd_argv[0]));
+			write (1, ": command not found\n", 21);
 			free_pipex (pipex);
-			write (1, "command not found\n", 19);
 			exit (127);
 		}
 		write (1, pipex->cmd_argv[0], ft_strlen(pipex->cmd_argv[0]));
 		write (1, ": command not found\n", 21);
-		return (1);
 	}
-	exec_pipex(pipex, fd, pid1);
+	if (pipe(fd) == -1)
+	{
+		free_pipex (pipex);
+		exit (write (1, "Pipe error\n", 14));
+	}
+	if (pipex->path_confirmed != NULL)
+		exec_pipex(pipex, fd, pid1);
 	return (0);
 }
 

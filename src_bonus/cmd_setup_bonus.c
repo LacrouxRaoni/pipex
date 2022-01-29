@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/27 22:53:27 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 14:04:40 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,11 @@ int	check_valid_path_cmd(t_pipex_bonus *pipex)
 	char	*aux;
 
 	if (pipex->cmd_argv[0][0] == '/')
+	{
 		pipex->path_confirmed = ft_strdup(pipex->cmd_argv[0]);
-	if (access(pipex->path_confirmed, F_OK) == 0)
-		return (0);
+		if (access(pipex->path_confirmed, F_OK) == 0)
+			return (0);
+	}
 	i = 0;
 	while (pipex->path[i])
 	{

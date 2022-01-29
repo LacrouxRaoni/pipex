@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_substr_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/20 18:52:41 by rruiz-la          #+#    #+#             */
-/*   Updated: 2021/08/20 21:05:16 by rruiz-la         ###   ########.fr       */
+/*   Created: 2021/08/10 20:24:49 by rruiz-la          #+#    #+#             */
+/*   Updated: 2022/01/29 13:18:47 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	t_list	*new_list;
-	t_list	*tmp;
+	char	*substr;
+	size_t	size;
 
-	if (!lst || !f)
+	if (s == NULL)
 		return (NULL);
-	new_list = NULL;
-	while (lst)
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if ((ft_strlen(s) - start) < len)
+		size = (ft_strlen(s) - start) + 1;
+	else
+		size = len + 1;
+	substr = (char *)malloc(size * sizeof(char));
+	if (!substr)
 	{
-		tmp = ft_lstnew(lst->content);
-		if (!tmp)
-		{
-			ft_lstclear(&new_list, del);
-			return (NULL);
-		}
-		tmp->content = f(tmp->content);
-		ft_lstadd_back(&new_list, tmp);
-		lst = lst->next;
+		return (NULL);
 	}
-	return (new_list);
+	ft_strlcpy(substr, &s[start], size);
+	return (substr);
 }

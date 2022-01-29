@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/26 14:30:57 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 12:03:33 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int		treat_argv_envp(t_pipex *pipex, char **argv, char **envp);
 int		validate_path(t_pipex *pipex, char **envp);
 int		open_files(t_pipex *pipex, char **argv, int argc);
 void	free_pipex(t_pipex *pipex);
+char	**split_pipex(char const *s, char c);
+
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	**split_pipex(char const *s, char c);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

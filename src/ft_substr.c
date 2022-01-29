@@ -6,37 +6,30 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 20:24:49 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/10 20:42:41 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 12:15:09 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-static int	strnlen(char *s, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] && i < len)
-		i++;
-	return (i);
-}
+#include "pipex.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	size;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
-	size = ft_strlen(s);
-	if (size > start)
-		len = strnlen(&s[start], len);
-	else
+	if (start > ft_strlen(s))
 		return (ft_strdup(""));
-	substr = (char *)malloc(sizeof(char) * len + 1);
+	if ((ft_strlen(s) - start) < len)
+		size = (ft_strlen(s) - start) + 1;
+	else
+		size = len + 1;
+	substr = (char *)malloc(size * sizeof(char));
 	if (!substr)
+	{
 		return (NULL);
-	ft_strlcpy(substr, &s[start], len + 1);
+	}
+	ft_strlcpy(substr, &s[start], size);
 	return (substr);
 }

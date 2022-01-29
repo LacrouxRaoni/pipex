@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/27 23:27:16 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 13:19:52 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <stdio.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 128
+# endif
 
 typedef struct s_pipex_bonus
 {
@@ -48,5 +52,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*get_next_line(int fd);
 void	ft_putstr_fd(char *s, int fd);
+int		free_reader(char **backup_buffer, int bytes_read);
+char	*gnl_join(char **s1, char **s2);
 
 #endif

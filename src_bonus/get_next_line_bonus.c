@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 18:44:47 by rruiz-la          #+#    #+#             */
-/*   Updated: 2021/11/13 11:31:27 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 13:19:20 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-void	arrange_backup(char **backup_buffer, int *i)
+static void	arrange_backup(char **backup_buffer, int *i)
 {
 	int		j;
 
@@ -25,7 +25,7 @@ void	arrange_backup(char **backup_buffer, int *i)
 	(*backup_buffer)[j] = '\0';
 }
 
-char	*extract_line(char **backup_buffer)
+static char	*extract_line(char **backup_buffer)
 {
 	char	*line;
 	int		i;
@@ -54,7 +54,7 @@ char	*extract_line(char **backup_buffer)
 	return (line);
 }
 
-int	read_file(int fd, char **buffer, char **buffer_backup)
+static int	read_file(int fd, char **buffer, char **buffer_backup)
 {
 	int	i;
 	int	bytes_read;
@@ -81,7 +81,7 @@ int	read_file(int fd, char **buffer, char **buffer_backup)
 	return (bytes_read);
 }
 
-char	*get_line(int fd, char **buff, char **backup_buff)
+static char	*get_line(int fd, char **buff, char **backup_buff)
 {
 	int	bytes_read;
 

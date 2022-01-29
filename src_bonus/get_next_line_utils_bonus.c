@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/11 22:09:09 by rruiz-la          #+#    #+#             */
-/*   Updated: 2021/08/16 22:32:26 by rruiz-la         ###   ########.fr       */
+/*   Created: 2021/09/01 18:44:50 by rruiz-la          #+#    #+#             */
+/*   Updated: 2022/01/29 13:18:58 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	free_reader(char **backup_buffer, int bytes_read)
 {
-	size_t	i;
+	free (*backup_buffer);
+	return (bytes_read);
+}
 
-	if (!dest && !src)
-	{
-		return (NULL);
-	}
-	i = 0;
-	while (n--)
-	{
-		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dest);
+char	*gnl_join(char **s1, char **s2)
+{
+	char	*swap;
+
+	swap = *s1;
+	*s1 = ft_strjoin((const char *)swap, (const char *)*s2);
+	free(swap);
+	swap = NULL;
+	return (*s1);
 }

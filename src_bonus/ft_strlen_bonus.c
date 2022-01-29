@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_strlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/20 14:22:06 by rruiz-la          #+#    #+#             */
-/*   Updated: 2021/08/20 21:00:57 by rruiz-la         ###   ########.fr       */
+/*   Created: 2021/08/11 22:20:00 by rruiz-la          #+#    #+#             */
+/*   Updated: 2022/01/29 13:18:38 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+size_t	ft_strlen(const char *s)
 {
-	t_list	*temp;
+	size_t	i;
+	char	*str;
 
-	temp = *lst;
-	*lst = new;
-	new->next = temp;
+	if (!s)
+		return (0);
+	str = (char *)s;
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
