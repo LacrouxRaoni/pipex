@@ -1,4 +1,6 @@
 *.gch
+obj/
+obj/bonus
 .vscode
 file2.txt
 *.o
