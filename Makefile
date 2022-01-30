@@ -6,7 +6,7 @@
 #    By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 16:17:34 by rruiz-la          #+#    #+#              #
-#    Updated: 2022/01/30 16:36:12 by rruiz-la         ###   ########.fr        #
+#    Updated: 2022/01/30 18:26:45 by rruiz-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(NAME_BONUS):	$(OBJ_DIR_BONUS) $(OBJ_BONUS)
 	$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME_BONUS) $(I_PIPEX)
 
 $(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(I_PIPEX)
+	$(CC) $(CFLAGS) $(FS) -c $< -o $@ $(I_PIPEX)
 
 $(OBJ_DIR):
 	mkdir obj
@@ -93,6 +93,6 @@ fclean: clean
 re: fclean all
 
 valgrind: $(NAME)
-	valgrind -s --leak-check=full --show-leak-kinds=all ./pipex fil.txt "cat" "ls" file2.txt
+	valgrind -s --leak-check=full --show-leak-kinds=all ./pipex_bonus here_doc ok "cat" "grep palavra" "tr a 4" file2.txt
 
 .PHONY:	all clean fclean re valgrind bonus
