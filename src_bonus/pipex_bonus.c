@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/29 14:03:48 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/29 21:24:00 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ static int	prepare_and_exec_pipe(t_pipex_bonus *pipex, int *fd, int argc)
 	{
 		if (pipex->index == argc - 2)
 		{
+			write (1, pipex->cmd_argv[0], ft_strlen(pipex->cmd_argv[0]));
+			write (1, ": command not found\n", 21);
 			free_pipex (pipex);
-			write (1, "command not found\n", 19);
 			exit (127);
 		}
 		write (1, pipex->cmd_argv[0], ft_strlen(pipex->cmd_argv[0]));
@@ -92,7 +93,7 @@ int	pipex_bonus(int argc, char **argv, char **envp, t_pipex_bonus *pipex)
 			else
 			{
 				free_pipex(pipex);
-				break ;
+				return (1);
 			}
 		}
 	}
