@@ -6,7 +6,7 @@
 #    By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 16:17:34 by rruiz-la          #+#    #+#              #
-#    Updated: 2022/01/29 14:06:11 by rruiz-la         ###   ########.fr        #
+#    Updated: 2022/01/30 16:36:12 by rruiz-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,6 @@ fclean: clean
 re: fclean all
 
 valgrind: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./pipex_bonus file1.txt "catza" "ls" file2.txt
+	valgrind -s --leak-check=full --show-leak-kinds=all ./pipex fil.txt "cat" "ls" file2.txt
 
 .PHONY:	all clean fclean re valgrind bonus

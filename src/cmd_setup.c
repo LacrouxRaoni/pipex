@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/29 17:15:37 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/30 16:58:15 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ int	open_files(t_pipex *pipex, char **argv, int argc)
 		pipex->file1 = open(argv[1], O_RDONLY);
 		if (pipex->file1 < 0)
 		{
+			pipex->file_err = 1;
 			perror (argv[1]);
+			if (errno == 13)
+				return (0);
 			return (1);
-		}	
+		}
 	}
 	return (0);
 }
@@ -52,6 +55,7 @@ int	treat_argv_envp(t_pipex *pipex, char **argv, char **envp)
 	pipex->path = NULL;
 	pipex->path_confirmed = NULL;
 	pipex->flag_cmd = 0;
+	pipex->file_err = 0;
 	if (argv == NULL || envp == NULL)
 	{
 		write (1, "Argv or envp is NULL\n", 22);

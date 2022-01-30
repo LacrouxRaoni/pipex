@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/29 20:38:17 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/30 16:57:41 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	prepare_and_exec_pipe(t_pipex *pipex, int *fd, int argc)
 		free_pipex (pipex);
 		exit (write (1, "Pipe error\n", 14));
 	}
-	if (pipex->path_confirmed != NULL)
+	if (pipex->path_confirmed != NULL && pipex->file_err == 0)
 		exec_pipex(pipex, fd, pid1);
 	return (0);
 }

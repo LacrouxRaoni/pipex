@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 21:08:47 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/25 16:10:50 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/30 00:03:46 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,18 @@ void	here_doc(int *fd, t_pipex_bonus *pipex, char **argv)
 			if (line[limiter] == '\n')
 				break ;
 			else
+			{
 				write (fd[1], line, ft_strlen(line));
+				free (line);
+			}
 		}
 		else
 			write (fd[1], line, ft_strlen(line));
+		free (line);
 	}
 	dup2(fd[0], STDIN_FILENO);
 	close (fd[0]);
 	close (fd[1]);
 	pipex->index++;
+	free (line);
 }

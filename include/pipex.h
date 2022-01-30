@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/29 12:03:33 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/30 14:36:10 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <stdio.h>
+# include <errno.h>
 
 typedef struct s_pipex
 {
@@ -25,6 +26,7 @@ typedef struct s_pipex
 	int		file1;
 	int		file2;
 	int		flag_cmd;
+	int		file_err;
 	char	**tmp_envp;
 	char	**cmd_argv;
 	char	**path;
