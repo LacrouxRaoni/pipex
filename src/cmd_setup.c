@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/30 16:58:15 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/31 10:58:31 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	open_files(t_pipex *pipex, char **argv, int argc)
 			perror (argv[1]);
 			if (errno == 13)
 				return (0);
-			return (1);
+			pipex->file_exit = 1;
 		}
 	}
 	return (0);

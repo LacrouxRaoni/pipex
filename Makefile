@@ -6,7 +6,7 @@
 #    By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 16:17:34 by rruiz-la          #+#    #+#              #
-#    Updated: 2022/01/30 18:26:45 by rruiz-la         ###   ########.fr        #
+#    Updated: 2022/01/31 11:34:07 by rruiz-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ CC	=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 
 SRC_DIR	=	src
-SRC_FILES	=	pipex.c \
+SRC_FILES	=	main.c \
+				pipex.c \
 				cmd_setup.c \
 				split_pipex.c \
 				free_pipex.c \
@@ -93,6 +94,6 @@ fclean: clean
 re: fclean all
 
 valgrind: $(NAME)
-	valgrind -s --leak-check=full --show-leak-kinds=all ./pipex_bonus here_doc ok "cat" "grep palavra" "tr a 4" file2.txt
+	valgrind -s --leak-check=full --show-leak-kinds=all ./pipex_bonus here_doc ok "cat" "grep palavra" "tr a ' '" "tr v V" file2.txt
 
 .PHONY:	all clean fclean re valgrind bonus

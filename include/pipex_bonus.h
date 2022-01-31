@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:08:14 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/30 15:03:56 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:26:59 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_pipex_bonus
 	int		file1;
 	int		file2;
 	int		new_argc;
-	int		file_err;	
+	int		file_err;
+	int		file_exit;
 	char	**tmp_envp;
 	char	**cmd_argv;
 	char	**path;

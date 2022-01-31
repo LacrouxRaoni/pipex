@@ -6,7 +6,7 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:17:40 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/30 16:57:41 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:17:49 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,31 +74,31 @@ static int	prepare_and_exec_pipe(t_pipex *pipex, int *fd, int argc)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	ft_pipex(int argc, char **argv, char **envp, t_pipex *pipex)
 {
-	t_pipex	pipex;
 	int		fd[2];
 
-	pipex.index = 2;
 	if (argc == 5)
 	{
-		while (pipex.index < argc - 1)
+		while (pipex->index < argc - 1)
 		{
-			if (treat_argv_envp(&pipex, argv, envp) == 0
-				&& open_files(&pipex, argv, argc) == 0)
+			if (treat_argv_envp(pipex, argv, envp) == 0
+				&& open_files(pipex, argv, argc) == 0)
 			{
-				prepare_and_exec_pipe (&pipex, fd, argc);
-				exec_parent_process (&pipex, fd);
+				prepare_and_exec_pipe (pipex, fd, argc);
+				exec_parent_process (pipex, fd);
 			}
 			else
 			{
-				free_pipex(&pipex);
+				free_pipex(pipex);
 				return (1);
 			}
-			pipex.index++;
+			pipex->index++;
 		}
 	}
 	else
 		exit (write (1, "Invalid argument numbers\n", 27));
+	if (pipex->file_exit == 1)
+		exit (1);
 	return (0);
 }
