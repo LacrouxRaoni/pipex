@@ -6,22 +6,42 @@
 /*   By: rruiz-la <rruiz-la@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 18:14:59 by rruiz-la          #+#    #+#             */
-/*   Updated: 2022/01/31 11:26:31 by rruiz-la         ###   ########.fr       */
+/*   Updated: 2022/02/06 09:25:09 by rruiz-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
+static int	verify_and_open_file_output(char **argv, t_pipex_bonus *pipex)
+{
+	pipex->file2 = open(argv[pipex->new_argc - 1],
+			O_WRONLY | O_APPEND, 0777);
+	if (pipex->file2 < 0)
+	{
+		if (errno == 13)
+		{
+			perror(argv[pipex->new_argc - 1]);
+			return (0);
+		}
+		else
+		{
+			pipex->file2 = open(argv[pipex->new_argc - 1],
+					O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			if (pipex->file2 == -1)
+			{
+				perror (argv[pipex->new_argc - 1]);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 int	open_files(t_pipex_bonus *pipex, char **argv, int argc)
 {
 	pipex->new_argc = argc;
-	pipex->file2 = open(argv[pipex->new_argc - 1],
-			O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (pipex->file2 < 0)
-	{
-		perror (argv[argc - 1]);
+	if (verify_and_open_file_output(argv, pipex) == 1)
 		return (1);
-	}
 	if (!(ft_strncmp (argv[1], "here_doc", 8) == 0))
 	{
 		if (pipex->index == 2)
